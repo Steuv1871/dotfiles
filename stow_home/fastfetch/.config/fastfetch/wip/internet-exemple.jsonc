@@ -1,0 +1,109 @@
+{
+        "logo": {
+        "source": "~/.config/fastfetch/garuda-logo-rickyBoobie_50-bold.txt",
+        "type" : "file",
+        "height": 18
+    },
+    "display": {
+        "separator": " : "
+    },
+    "modules": [
+        // --- Software ---
+        {
+            "type":"title",
+            "color": {
+                "user":"cyan",
+                //"at":"",
+                "host":"cyan"
+            },
+            //"format" : "            {6}{7}{8}"
+            //"format" : " ▂▃▅▇█▓▒░      {6}{7}{8}     ░▒▓█▇▅▃▂"
+            "format" : "            {6}{7}{8}"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────┐"
+        },
+        {
+            "type":"host",
+            "key": "   Host",
+            "keyColor": "red"
+        },
+        {
+            "type": "os",
+            "key": "   OS",
+            "keyColor": "red"
+        },
+        {
+            "type": "kernel",
+            "key": "   Kernel",
+            "keyColor": "red"
+        },
+        {
+            "type": "packages",
+            "key": "   Packages",
+            "keyColor": "green"
+        },
+        // display with Hz
+        {
+            "type": "display",
+            "key": "  󰍹 Display",
+            "keyColor": "green"
+        },
+        {
+            "type": "wm",
+            "key": "   WM",
+            "keyColor": "yellow"
+        },
+        // DE et WM
+        {
+            "type": "terminal",
+            "key": "   Terminal",
+            "keyColor": "yellow"
+        },
+        // Shell
+        // Theme + icons
+        // font
+        // cursor
+        // locale
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────┘"
+        },
+        // --- Hardware ---
+        {
+            "type": "custom",
+            //"format": "\u001b[36m             ▰▰▰▰▰  ▰▰▰▰▰"
+            "format": "\u001b[36m             <<----  ---->>"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────┐"
+        },
+        //cpu
+        //gpu
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────┘"
+        },
+        // --- Health ---
+        {
+            "type": "custom",
+            "format": "\u001b[36m             ﮩ٨ـﮩﮩ٨ـ♡ ﮩ٨ـﮩﮩ"
+        },
+        {
+            "type": "custom",
+            "format": "┌──────────────────────────────────────────┐"
+        },
+        // uptime
+        // packages
+        // memory
+        //  Disk (/ et /mnt)
+        // local IP
+        // battery
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────┘"
+        }
+    ]
+}
