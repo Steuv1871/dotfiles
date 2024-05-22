@@ -1,0 +1,27 @@
+# general
+*.lock
+
+### stow home
+# cargo
+stow_home/cargo/.cargo/registry
+stow_home/cargo/.cargo/.package-cache
+
+# nvim
+# ignore local files but keep directory structure
+stow_home/nvim/configs/**/.local/share/nvim/*
+!stow_home/nvim/configs/**/.local/share/nvim/.gitkeep
+stow_home/nvim/configs/**/.local/state/nvim/*
+!stow_home/nvim/configs/**/.local/state/nvim/.gitkeep
+# ignore symlink
+stow_home/nvim/.local
+stow_home/nvim/.config
+# ignore lazy-lock files
+lazy-lock.json
+# ignore _blank content but keep directory structure
+stow_home/nvim/configs/_blank/.config/nvim/*
+!stow_home/nvim/configs/_blank/.config/nvim/.gitkeep
+
+# fonts (ignore anything that is not a font)
+stow_home/fonts/.local/share/fonts/*
+!stow_home/fonts/.local/share/fonts/*.ttf
+!stow_home/fonts/.local/share/fonts/*.otf
