@@ -25,3 +25,6 @@ stow_home/nvim/configs/_blank/.config/nvim/*
 stow_home/fonts/.local/share/fonts/*
 !stow_home/fonts/.local/share/fonts/*.ttf
 !stow_home/fonts/.local/share/fonts/*.otf
+
+# WIP files
+TODO.md
