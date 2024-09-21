@@ -1,3 +1,6 @@
+# Downgrade pour downgrader des packages
+pacman -S downgrade
+
 # Keychain pour la sauvegarde 
 pacman -S keychain
 
@@ -28,7 +31,3 @@ sudo pacma -S nuclear-player
 
 ### SDDM Theme
 sudo pacman -S sddm-theme-astronaut
-# sudo vim /etc/sddm.conf
-# ---
-# [Theme]
-# Current=astronaut

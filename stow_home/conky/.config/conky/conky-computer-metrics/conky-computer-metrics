@@ -94,9 +94,9 @@ ${alignr}${offset -75}${exec cat /sys/class/power_supply/BAT0/capacity} : Batter
 ${alignr}${offset -95}< ${exec acpi | grep "Battery 0" | awk '{print $4}'} | ${battery_percent BAT0}% > BAT 0 < ${color #BEC8CB}${battery_bar 5,110 BAT0}${color} >
 ${voffset 25}
 ${alignr}${offset -60}Hard Drive ─────────────────┐
-${alignr}${offset -70}< ${fs_used_perc}% > Root < ${color #BEC8CB}${fs_bar 5,120 /}${color} >${offset 10}│
-${alignr}${offset -70}< ${fs_used_perc /home}% > Home < ${color #BEC8CB}${fs_bar 5,120 /home}${color} >${offset 10}│
-${alignr}${offset -10}<  ${swapperc}% > Swap < ${color #BEC8CB}${swapbar 5,120}${color} >${offset 10}└────────────
+${alignr}${offset -70}< ${fs_used_perc}% >  Root < ${color #BEC8CB}${fs_bar 5,120 /}${color} >${offset 10}│
+${alignr}${offset -70}< ${fs_used_perc /mnt/stockage}% > Stock < ${color #BEC8CB}${fs_bar 5,120 /mnt/stockage}${color} >${offset 10}│
+${alignr}${offset -10}<  ${swapperc}% >  Swap < ${color #BEC8CB}${swapbar 5,120}${color} >${offset 10}└────────────
 # ${alignr}${offset -640}volume: ${exec amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }'}
 
 ]];
