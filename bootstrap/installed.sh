@@ -19,15 +19,17 @@ sudo pacman -S swaybg variety
 sudo pacman -S conky 
 # Programs for modules
 sudo pacman -S acpi
+# Installation de la version 1.20 car 1.21 a un bug avec wayland
+sudo pacman - U https://archive.archlinux.org/packages/c/conky/conky-1.20.2-2-x86_64.pkg.tar.zst
 
 ### Neofetch replacement
 sudo pacman -S hyfetch fastfetch
 
 ### RDP session manager
-sudo pacamn -S freerdp2
+sudo pacman -S freerdp2
 
 ### Nuclear
-sudo pacma -S nuclear-player
+sudo pacman -S nuclear-player
 
 ### SDDM Theme
 sudo pacman -S sddm-theme-astronaut

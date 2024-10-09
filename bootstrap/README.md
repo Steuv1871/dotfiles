@@ -6,15 +6,19 @@ For Garuda Hyperland (Arch)
 #### Create SSH keys
 ```bash
 mkdir .ssh && cd .ssh
+```
+```bash
 ssh-keygen -t rsa -C "[my mail]"
-#name your key and use this name in [ssh_key]
+```
+Name your key and use this name in [ssh_key]
+```bash
 cd ~
 ```
 
 #### Add SSH key to GitHub
 Install GitHub Cli
 ```bash
-sudo pacman -S github-cli 
+sudo yay -S github-cli 
 ``` 
 Login
 ```bash
@@ -36,16 +40,49 @@ ssh -T git@github.com
 Git config
 ```bash
 git config --global user.email "you@example.com"
+```
+```bash
 git config --global user.name "Your Name"
+```
+```bash
 git config credential.helper store
 ```
 
 #### Clone dotefiles
 ```bash
 git clone git@github.com:Steuv1871/dotfiles.git ~/.dotfiles
+```
+```bash
 cd ~/.dotfiles
+```
+```bash
 git checkout ["machine's branch"]
 ```
+
+#### Exec Bootstrap script
+TODO: Script to automaticaly move default config. Until, do it manually before executing `bootstrap.sh` 
+1. Check what need to be move
+```bash
+cd ~/.dotfiles/stow_home
+```
+```bash
+stow * -vn
+```
+2. Move defaults in error
+```bash
+mv ~/.config/waybar ~/.config/waybar.bck
+```
+
+```bash
+chmod +x ~/.dotfiles/bootstrap/bootstrap.sh
+```
+```bash
+~/.dotfiles/bootstrap/bootstrap.sh
+```
+#### Post-Bootstrap
+##### SDDM
+Symlink doesn't work for theme and faces (sddm github issue #1973).
+Need to copy /etc/sddm.conf, /usr/share/sddm/themes/* and /usr/share/sddm/faces/* from stow\_root/sddm
 
 #### Mount Hard drives
 1. `sudo pacman -S arch-install-scripts` for `genftsab`
