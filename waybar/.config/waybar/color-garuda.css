@@ -1,0 +1,18 @@
+ @define-color backgroundlight #7e16f0;
+ @define-color backgrounddark #000000;
+ @define-color workspacesbackground1 #7e16f0;
+ @define-color workspacesbackground2 #222222;
+ @define-color bordercolor #7e16f0;
+ @define-color textcolor1 #FFFFFF;
+ @define-color textcolor2 #FFFFFF;
+ @define-color textcolor3 #000000;
+ @define-color iconcolor #000000;
+
+ /* 
+ Colors:
+ - From window border :
+    - #3ca3ee 
+    - #7e16f0
+ 
+ */
+ 
