@@ -1,0 +1,16 @@
+### general
+/TODO.md
+/installed.sh
+
+## qtile
+qtile/.config/qtile/__pycache__
+
+## nvim
+# ignore vim sessions from mini.sessions
+Session.vim
+
+## zsh
+# ignore secrets
+secrets.zsh
+# ignore nvims plugin config file
+zsh/.config/oh-my-zsh/plugins/nvims/nvims_config

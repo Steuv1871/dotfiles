@@ -1,0 +1,15 @@
+[submodule "alacritty/.config/alacritty/themes"]
+	path = alacritty/.config/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme
+[submodule "zsh/.config/oh-my-zsh/plugins/zsh-autosuggestions"]
+	path = zsh/.config/oh-my-zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.config/oh-my-zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/.config/oh-my-zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/.config/oh-my-zsh/plugins/zsh-vi-mode"]
+	path = zsh/.config/oh-my-zsh/plugins/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode
+[submodule "sddm/themes/astronaut"]
+	path = sddm/themes/astronaut
+	url = https://github.com/totoro-ghost/sddm-astronaut.git
