@@ -1,0 +1,16 @@
+fork = false
+frame = "full"
+idle = true
+maximized = false
+neovim-bin = "/home/steuv/.config/neovide/wsl-launcher-nvims.sh"
+no-multigrid = false
+srgb = false
+tabs = true
+theme = "auto"
+title-hidden = true
+vsync = true
+wsl = true
+
+[font]
+    normal = ["JetBrainsMono Nerd Font Mono"] # Will use the bundled Fira Code Nerd Font by default
+    size = 12.0
