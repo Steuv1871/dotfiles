@@ -1,0 +1,492 @@
+format = """\
+[](first-bg)\
+$os\
+$username$sudo$hostname\
+[](bg:second-bg fg:first-bg)\
+$directory\
+[](fg:second-bg bg:third-bg)\
+$git_branch\
+$git_status\
+[](fg:third-bg bg:fourth-bg)\
+$docker_context\
+$package\
+$c\
+$cmake\
+$golang\
+$haskell\
+$helm\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nodejs\
+$perl\
+$php\
+$python\
+$rlang\
+$ruby\
+$rust\
+$scala\
+$swift\
+$terraform\
+$meson\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+[](fg:fourth-bg bg:fifth-bg)\
+$time\
+$cmd_duration\
+[ ](fg:fifth-bg)\
+$status\
+\n\
+${custom.wsl}\
+$kubernetes\
+$conda\
+$shell\
+$character"""
+
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+# A continuation prompt that displays two filled-in arrows
+continuation_prompt = '▶▶ '
+
+# custom color palette
+palette = 'tokyonight'
+
+[palettes.tokyonight]
+first-fg='#090c0c'
+first-bg='#a3aed2'
+second-bg='#769ff0'
+second-fg='#e3e5e5'
+third-bg='#394260'
+third-fg='#769ff0'
+fourth-bg='#212736'
+fourth-fg='#769ff0'
+fifth-bg='#1d2230'
+fifth-fg='#a0a9cb'
+
+# Special profile for transient prompts
+[profiles]
+transient = """\
+${custom.wsl}\
+$kubernetes\
+$conda\
+$status\
+$shell\
+[](fg:fifth-bg)\
+$time\
+$cmd_duration\
+[ ](fg:fifth-bg)\
+$character"""
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character]
+success_symbol = '[](bold green)'
+error_symbol = '[](bold red)'
+vimcmd_symbol = "[](bold green)"
+
+[shell]
+fish_indicator = '󰈺'
+bash_indicator = ''
+zsh_indicator = '󱉸'
+powershell_indicator = ''
+style = 'blue bold'
+disabled = false
+
+[username]
+# style_user = 'yellow bold'
+# style_root = 'red bold'
+format = '[$user]($style)'
+disabled = false
+show_always = true
+style_root = "bg:first-bg fg:red bold"
+style_user = "bg:first-bg fg:first-fg bold"
+
+[hostname]
+ssh_only = false
+format = '[$ssh_symbol]($style bold)[ on ]($style)[$hostname]($style bold)'
+# trim_at = '.companyname.com'
+disabled = false
+ssh_symbol = " "
+style = "bg:first-bg fg:first-fg"
+
+[sudo]
+format = "[ as $symbol]($style)"
+symbol = "🧙"
+style = "bg:first-bg fg:first-fg"
+allow_windows = false
+disabled = false
+
+[status]
+disabled = false
+format = '[\[$symbol$status_common_meaning$status_signal_name$status_maybe_int\]]($style)'
+map_symbol = true
+pipestatus = true
+symbol = "🔴"
+
+[os]
+format = "[$symbol]($style)"
+style = "bg:first-bg fg:first-fg"
+disabled = false
+
+# ░█░█░█▀▀░█░░
+# ░█▄█░▀▀█░█░░
+# ░▀░▀░▀▀▀░▀▀▀
+# Custom module to show on WSL session
+# TODO: the grep command create a little delay on powershell --> Try to find an other command
+[custom.wsl]
+format = '[](fg:third-bg)[ ](bg:third-bg fg:third-fg)[](fg:second-bg bg:third-bg)[$output](bg:second-bg fg:second-fg)[](fg:third-fg) '
+# format = '[]($style)[\[$output\]](bg:$style fg:black)[]($style) '
+command = 'echo $WSL_DISTRO_NAME'
+# command = "wslpath -w / | sed -e 's|\\\\\\\\wsl\\.localhost\\\\||' -e 's|\\\\||g'"
+os = 'linux'
+when = 'grep -i Microsoft /proc/version'
+style = 'cyan'
+
+# ░█▀█░█▀█░█▀█░█▀▀░█▀█░█▀█░█▀▄░█▀█
+# ░█▀█░█░█░█▀█░█░░░█░█░█░█░█░█░█▀█
+# ░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀░░▀░▀
+
+[conda]
+# style = "bg:fourth-bg fg:yellow bold"
+style="yellow bold"
+format = '[ $symbol\[$environment\] ]($style)'
+# symbol = " "
+ignore_base = false
+
+# ░█░█░█░█░█▀▄░█▀▀░█▀▄░█▀█░█▀▀░▀█▀░█▀▀░█▀▀
+# ░█▀▄░█░█░█▀▄░█▀▀░█▀▄░█░█░█▀▀░░█░░█▀▀░▀▀█
+# ░▀░▀░▀▀▀░▀▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀
+# Displays the current Kubernetes context name and, if set, the namespace, user and cluster from the kubeconfig file.
+# The namespace needs to be set in the kubeconfig file, this can be done via kubectl config set-context starship-context --namespace astronaut.
+# Similarly, the user and cluster can be set with kubectl config set-context starship-context --user starship-user and kubectl config set-context starship-context --cluster starship-cluster.
+# If the $KUBECONFIG env var is set the module will use that if not it will use the ~/.kube/config.
+
+[kubernetes]
+format = '[$symbol ($user on )($cluster in )$context \($namespace\)](dimmed green bold) '
+disabled = false
+style = "bold green"
+
+[[kubernetes.contexts]]
+# "bold red" style + default symbol when Kubernetes current context name equals "production" *and* the current user
+# equals "admin_user"
+context_pattern = "production"
+user_pattern = "admin_user"
+style = "bold red"
+context_alias = "prod"
+user_alias = "admin"
+
+# ░▀█▀░█▀█░█░█░█░█░█▀█░░░█▀█░▀█▀░█▀▀░█░█░▀█▀░░░█▀█░█▀▄░█▀▀░█▀▀░█▀▀░▀█▀░█▀▀
+# ░░█░░█░█░█▀▄░░█░░█░█░░░█░█░░█░░█░█░█▀█░░█░░░░█▀▀░█▀▄░█▀▀░▀▀█░█▀▀░░█░░▀▀█
+# ░░▀░░▀▀▀░▀░▀░░▀░░▀▀▀░░░▀░▀░▀▀▀░▀▀▀░▀░▀░░▀░░░░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀
+
+# Default prompt:
+# format = """
+# [░▒▓](#a3aed2)\
+# [  ](bg:#a3aed2 fg:#090c0c)\
+# [](bg:#769ff0 fg:#a3aed2)\
+# $directory\
+# [](fg:#769ff0 bg:#394260)\
+# $git_branch\
+# $git_status\
+# [](fg:#394260 bg:#212736)\
+# $nodejs\
+# $rust\
+# $golang\
+# $php\
+# [](fg:#212736 bg:#1d2230)\
+# $time\
+# [ ](fg:#1d2230)\
+# \n$character"""
+
+[directory]
+style = "fg:second-fg bg:second-bg"
+format = "[ $path ]($style)"
+truncation_length = 5
+truncation_symbol = "…/"
+truncate_to_repo=false
+read_only = " 󰌾"
+
+[directory.substitutions]
+"Documents" = "󰈙"
+"Downloads" = ""
+"Music" = ""
+"Pictures" = ""
+
+[git_branch]
+symbol = ""
+style = "bg:third-bg fg:third-fg"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "bg:third-bg fg:third-fg"
+format = '[($all_status$ahead_behind )]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:fourth-bg fg:fourth-fg"
+format = '[ $symbol ($version) ]($style)'
+
+[rust]
+symbol = ""
+style = "bg:fourth-bg fg:fourth-fg"
+format = '[ $symbol ($version) ]($style)'
+
+[golang]
+symbol = ""
+style = "bg:fourth-bg fg:fourth-fg"
+format = '[ $symbol ($version) ]($style)'
+
+[php]
+symbol = ""
+style = "bg:fourth-bg fg:fourth-fg"
+format = '[ $symbol ($version) ]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:fifth-bg fg:fifth-fg"
+format = '[  $time ]($style)'
+
+[cmd_duration]
+disabled = false
+min_time = 1_000
+show_milliseconds = true
+style = "bg:fifth-bg fg:fifth-fg"
+format = '[ 󱦟 $duration ]($style)'
+
+# ░█▀█░█▀▀░█▀▄░█▀▄░░░█▀▀░█▀█░█▀█░▀█▀░░░█▀▀░█░█░█▄█░█▀▄░█▀█░█░░░█▀▀░░░█▀█░█▀▄░█▀▀░█▀▀░█▀▀░▀█▀░█▀▀
+# ░█░█░█▀▀░█▀▄░█░█░░░█▀▀░█░█░█░█░░█░░░░▀▀█░░█░░█░█░█▀▄░█░█░█░░░▀▀█░░░█▀▀░█▀▄░█▀▀░▀▀█░█▀▀░░█░░▀▀█
+# ░▀░▀░▀▀▀░▀░▀░▀▀░░░░▀░░░▀▀▀░▀░▀░░▀░░░░▀▀▀░░▀░░▀░▀░▀▀░░▀▀▀░▀▀▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░▀▀▀
+[aws]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = "  "
+
+[buf]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[c]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[crystal]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[dart]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+# --> Added to tokyo
+# [directory]
+# read_only = " 󰌾"
+
+[docker_context]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol $context) ]($style)'
+symbol = " "
+
+[elixir]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[elm]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[fennel]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[fossil_branch]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+# Already in tokyo
+# [git_branch]
+# symbol = " "
+
+# Already in tokyo
+# [golang]
+# symbol = " "
+
+[guix_shell]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[haskell]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[haxe]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[hg_branch]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[java]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[julia]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[kotlin]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[lua]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = "󰔷 "
+
+[nim]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = "󰆥 "
+
+[nix_shell]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+# Already in tokyo
+# [nodejs]
+# symbol = " "
+
+[ocaml]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+# Already in tokyo
+# [php]
+# symbol = " "
+
+[pijul_channel]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[python]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format ="[ ${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
+symbol = " "
+
+[rlang]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = "󰟔 "
+
+[ruby]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+# Already in tokyo
+# [rust]
+# symbol = " "
+
+[scala]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[swift]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
+
+[zig]
+style = "bg:fourth-bg fg:fourth-fg bold"
+format = '[ $symbol ($version) ]($style)'
+symbol = " "
