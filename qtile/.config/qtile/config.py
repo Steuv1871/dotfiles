@@ -1,0 +1,150 @@
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+from typing import List
+import os
+import subprocess
+
+from libqtile import qtile
+from libqtile import layout, hook
+from libqtile.config import Click, Drag, Match, Screen
+from libqtile.lazy import lazy
+
+# Custom submodules imports
+from keybind import initKeybind
+from groups import initGroups
+from colors import initColors
+from layout import initLayouts
+from bar_v1 import initBar
+
+# Debug functions
+from libqtile.log_utils import logger
+
+### Global variables ###
+mod = "mod4"
+#########################
+
+# Backend-Specific Configuration
+if qtile.core.name == "x11":
+    terminal = "urxvtc"
+elif qtile.core.name == "wayland":
+    terminal = "alacritty"
+    from libqtile.backend.wayland import InputConfig
+    wl_input_rules = {
+        "type:keyboard": InputConfig(kb_layout='fr'),
+        #"type:touch": InputConfig(calibration="0 1 0 -1 0 1 0 0 1"),
+        "0712:000a WaveShare WaveShare": InputConfig(click_method='clickfinger', drag='False', tap='True', calibration="0 1 0 -1 0 1 0 0 1"), # Waveshare 7.9inch display
+        #"28784:21316:Nasp Quark Plus Mouse": InputConfig(), # Quark Plus Mouse wheel with rotary encoders
+    }
+
+# call windows groups creation from groups.py
+groups = initGroups()
+
+# call key binding from keybind.py
+keys = initKeybind(mod=mod, terminal=terminal, groups=groups)
+
+# call color palette from colors.py
+colors = initColors()
+
+# call layouts from layout.py
+layouts = initLayouts(colors)
+
+# call bar configuration from bar_vx.py
+bar = initBar(colors)
+
+# Screen configuration
+widget_defaults = dict(
+    font='JetBrainsMono Nerd Font Regular',
+    fontsize=16,
+    padding=3,
+)
+extension_defaults = widget_defaults.copy()
+
+screens = [
+    Screen(
+        wallpaper="~/Pictures/wallpapers-penkesu/Wallpaper_spunk.png",
+        wallpaper_mode='fill',
+        bottom=bar,
+        ## Gap for all layouts
+        # bottom=bar.Gap(4),
+        # left=bar.Gap(3),
+        # right=bar.Gap(3),
+    ),
+]
+
+# Drag floating layouts.
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front())
+]
+
+### Qtile parameters ###
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+follow_mouse_focus = False
+bring_front_click = True
+cursor_warp = True # The mouse cursor follow the current active window so I can use mouse wheel
+focus_on_window_activation = "smart"
+floating_layout = layout.Floating(float_rules=[
+    # Run the utility of `xprop` to see the wm class and name of an X client.
+    *layout.Floating.default_float_rules,
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+])
+auto_fullscreen = True
+focus_on_window_activation = "smart"
+reconfigure_screens = True
+
+# If things like steam games want to auto-minimize themselves when losing
+# focus, should we respect this or not?
+auto_minimize = True
+
+######################
+
+##--- Startup Function ---##
+# @hook.subscribe.startup
+# def autostart():
+@hook.subscribe.startup
+def start_once():
+    home = os.path.expanduser('~')
+    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
+
+# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
+# string besides java UI toolkits; you can see several discussions on the
+# mailing lists, GitHub issues, and other WM documentation that suggest setting
+# this string if your java app doesn't work correctly. We may as well just lie
+# and say that we're a working one by default.
+#
+# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
+# java that happens to be on java's whitelist.
+wmname = "LG3D"
