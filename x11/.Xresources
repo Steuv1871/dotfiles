@@ -1,0 +1,83 @@
+! ~/.Xresources config
+! --------------------
+
+! ____________________
+!     urxvt config
+! ____________________
+! base config
+URxvt.imLocale: fr_FR.UTF-8
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.cursorBlink: true
+URxvt.saveLines: 500
+
+! Fonts
+URxvt*font: xft:JetBrainsMono Nerd Font Mono:size=12:minspace=False
+Xft.dpi: 96
+Xft.Hinting: 1
+Xft.RGBA: rgb
+Xft.HintStyle: hintslight
+Xft.Antialias: 1
+
+! Term Size
+URxvt.geometry: 128x16
+
+! Term Color
+! URxvt.background: #1B1B1B
+! URxvt.foreground: #CFCFCF
+! URxvt.cursorColor: #9FF766
+*.foreground:    #A9B1D6
+*.background:    #1A1B26
+*.cursorColor:   #A9B1D6
+*.highlightColor:#3A3F4B
+
+! Term Color palette
+! Normal      Bright
+! --------    -------
+! 0 Black      8 Black
+! 1 Red        9 Red
+! 2 Yellow    10 Yellow --> Problem with yellow 10 and green 11 swapped
+! 3 Green     11 Green  --> Change made in config
+! 4 Blue      12 Blue
+! 5 Magenta   13 Magenta
+! 6 Cyan      14 Cyan
+! 7 White     15 White
+
+! Black colours
+*.color0:        #1A1B26
+*.color8:        #4E5173
+! Red colours
+*.color1:        #F7768E
+*.color9:        #E06C75
+! Yellow colours
+*.color3:        #E0AF68
+*.color10:       #D19A66
+! Green colours
+*.color2:        #9ECE6A
+*.color11:       #98C379
+! Blue colours
+*.color4:        #7AA2F7
+*.color12:       #61AFEF
+! Magenta (pink, !green) colours
+*.color5:        #9A7ECC
+*.color13:       #C678DD
+! Cyan (blue + green)
+*.color6:        #4ABAAF
+*.color14:       #56B6C2
+! White colours
+*.color7:        #ACB0D0
+*.color15:       #ABB2BF
+
+! Onglets
+! URxvt.perl-ext: tabbed
+! URxvt.tabbed.tabbar-fg: 7
+! URxvt.tabbed.tabbar-bg: 8
+! URxvt.tabbed.tab-fg: 7
+! URxvt.tabbed.tab-bg: 0
+
+! Extensions
+URxvt.perl-ext-common: default
+
+! ____________________
+! end of urxvt config
+! ____________________
