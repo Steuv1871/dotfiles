@@ -37,7 +37,7 @@ end)
 -- Keymap (TODO: Mettre dans un fichier à part)
 now(function()
   -- vim.keymap.set("n","<leader>aa", function() print "hi!" end, { desc = 'Say hi!'}) -- test leader key, the desc is used for clue
-  vim.keymap.set("i", "jk", "<ESC>", { desc = 'jk to escape'}) -- jk to escape in insert mode
+  vim.keymap.set("i", "jj", "<ESC>", { desc = 'jj to escape'}) -- jj to escape in insert mode
   -- Buffers <Leader>b
   vim.keymap.set("n","<leader>bl", '<Cmd>ls<CR>', { desc = 'List'}) -- List buffers
   vim.keymap.set("n","<leader>bo", '<Cmd>enew<CR>', { desc = 'Open new'}) -- Open new buffer
