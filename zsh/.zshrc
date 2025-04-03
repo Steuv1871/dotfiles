@@ -129,5 +129,5 @@ fpath+=~/.zsh_functions
 ## Run neofetch if not in VSCode
 if [[ "$TERM_PROGRAM" != "vscode" ]]; then
     ## Run neofetch
-    fastfetch --disable-linewrap
+    neofetch
 fi

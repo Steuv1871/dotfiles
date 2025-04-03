@@ -66,8 +66,16 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# Neofetch
-alias neofetch="fastfetch"
+# ░█▀█░█▀▀░█▀█░█▀▀░█▀▀░▀█▀░█▀▀░█░█
+# ░█░█░█▀▀░█░█░█▀▀░█▀▀░░█░░█░░░█▀█
+# ░▀░▀░▀▀▀░▀▀▀░▀░░░▀▀▀░░▀░░▀▀▀░▀░▀
+# neofetch alias with fastfetch
+if [[ $(cat /etc/*-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/"//g') == "Garuda Linux" ]]; then
+    # If distro is Garuda then use better logo
+    alias neofetch="fastfetch -l ~/.config/fastfetch/garuda-logo-rickyBoobie_50-bold.txt"
+else
+    alias neofetch="fastfetch"
+fi
 alias gayfetch="hyfetch -b fastfetch"
 
 # ░▀█▀░█░█░▀█▀░█▀▄░█▀▄░░░░░█▀█░█▀█░█▀▄░▀█▀░█░█
