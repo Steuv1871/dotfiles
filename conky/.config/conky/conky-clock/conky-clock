@@ -1,0 +1,48 @@
+-- vim: set ft=lua :
+-- Simple clock
+local is_wayland = os.getenv("XDG_SESSION_TYPE") == "wayland"
+
+conky.config = {
+    background = false,
+    font = 'FuraCode Nerd Font:pixelsize=20',
+    use_xft = true,
+    xftalpha = 1.0,
+    update_interval = 1,
+    total_run_times = 0,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_wayland = is_wayland,
+    out_to_x = not is_wayland,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_type = 'override',
+    own_window_class = 'Conky',
+    own_window_argb_visual = true,
+    own_window_argb_value = 255,
+    own_window_colour = '#000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+    stippled_borders = 0,
+    border_width = 0,
+    default_color = '#BEC8CB',
+    default_shade_color = '#BEC8CB',
+    default_outline_color = '#BEC8CB',
+    color1 = 'd79922',
+    alignment = 'top_left',
+    gap_x = 10,
+    gap_y = 22,
+    use_spacer = 'none',
+    uppercase = true,
+};
+
+conky.text = [[
+${font Anton:pixelsize=140}${exec date +"%H"}${color1}${exec date +"%M"}${color}${font}
+────────────────────
+${execpi 3600 cal --color=always | sed -E 's/\x1b\[[1-9;]*m/${color1}/g; s/\x1b\[0m/${color}/g' }
+────────────────────
+]];

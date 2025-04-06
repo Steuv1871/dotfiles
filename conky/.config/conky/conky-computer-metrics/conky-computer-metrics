@@ -1,0 +1,101 @@
+-- vim: set ft=lua :
+-- Systems metrics
+local is_wayland = os.getenv("XDG_SESSION_TYPE") == "wayland"
+
+conky.config = {
+    background = false,
+    font = 'FuraCode Nerd Font:pixelsize=9',
+    use_xft = true,
+    xftalpha = 1.0,
+    update_interval = 4,
+    total_run_times = 0,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_wayland = is_wayland,
+    out_to_x = not is_wayland,
+    own_window = true,
+    own_window_transparent = true,
+    own_window_type = 'override',
+    own_window_class = 'Conky',
+    own_window_argb_visual = true,
+    own_window_argb_value = 255,
+    own_window_colour = '#000',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
+    draw_shades = true,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+    stippled_borders = 0,
+    border_width = 0,
+    -- default_color = '#BEC8CB',
+    default_color = '#FFFFFF',
+    default_shade_color = '#262828',
+    default_outline_color = '#262828',
+    alignment = 'bottom_right',
+    gap_x = 156,
+    gap_y = 20,
+    no_buffers = true,
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+    use_spacer = 'none',
+    maximum_width = 1024,
+    minimum_height = 640,
+    uppercase = true,
+    lua_load = '~/.config/conky/conky-computer-metrics/metric-network.lua'
+};
+--x 1342 y 365
+
+-- Adapted wireless interface
+conky.text = [[
+#leet chars: ┤┤└└┴┴┐┐││┘┘┌┌├├┬┬┼┼┴┴── ││ ▽▼△▲▵▴▾▿
+${alignr}${offset 250}--------------------------------
+${alignr}${offset 0}┌──────── ${nodename}${font} ─────────────
+${alignr}${offset -110}${uid_name 1000}${font} ──────┐
+${alignr}${offset -110}< ${execi 3600 lsb_release -ds | sed 's/"//g'} > Distro ─┤
+${alignr}${offset -110}< ${kernel} > Kernel ─┤
+${alignr}${offset -110}< ${uptime_short} > Uptime ─┘
+${voffset 0}
+${alignr}${offset -30}┌──────────
+${alignr}${offset -80}│
+${alignr}${offset -80}< ${execi 3600 $HOME/.config/conky/conky-computer-metrics/metric-gpu.sh} > GPU ────────────┘
+${alignr}${offset -150}< ${execi 3600 $HOME/.config/conky/conky-computer-metrics/metric-resolution.sh} > Res
+${voffset 10}
+${alignr}${offset -45}< ${exec cat /etc/default/locale | grep "LANG=" | sed 's/LANG=//g'} > Locale ────────────────┐
+${alignr}${offset -45}│
+${alignr}${offset -45}│
+${voffset -10}
+${alignr}${offset -75}< ${exec sensors | grep "RPM" | cut -c14-25 | awk -F: 'NR==1 {print $1}'} > Fan Speed ──────────┐
+${alignr}${offset -75}< ${exec sensors | grep "RPM" | cut -c14-25 | awk -F: 'NR==2 {print $1}'} > Fan Speed ──────────┤
+${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}┌────── Temperatures ───────────────┤
+${alignr}${offset -165}├─ Core0 < ${execi 5 sensors|grep 'Core 0'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C >${alignr}${offset -75}│
+${alignr}${offset -165}└─ Core1 < ${execi 5 sensors|grep 'Core 1'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C >${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}│
+${alignr}${offset -75}┌───── < ${execi 1000 cat /proc/cpuinfo|grep 'model name'|sed -e 's/model name.*: //'|uniq|cut -c 1-36|sed 's/(R)//g'|sed 's/(TM)//g'|sed 's/CPU     //g'} > ──────────┤
+${alignr}${offset -325}│${offset 250}│
+${alignr}${offset -260}└─── Processes${offset 185}│
+${alignr}${offset -175}< ${top name 1}  ${top cpu 1} >${offset 100}│
+${alignr}${offset -175}< ${top name 2}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -175}< ${top name 3}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -175}< ${top name 4}  ${top cpu 2} >${offset 100}│
+${alignr}${offset -75}│
+${voffset 15}
+${alignr}${offset -75}< $memperc% | $mem/$memmax ${color #BEC8CB}${membar 5,50}${color} > RAM ──────────┐
+${alignr}${offset -75}│
+${voffset 0}
+${alignr}${offset -75}${lua_parse add_network_adapter_to addr myadapter} : ${lua_parse add_network_adapter_to wireless_essid myadapter} : SSID ────────────┐
+${alignr}${offset -115}UP < ${color #BEC8CB}${lua_parse add_network_adapter_to upspeedgraph myadapter 15,130 BCC3C3 BCC3C3}${color} >${voffset -15}${offset 40}│
+${alignr}${offset -110}${voffset 10}DOWN < ${color #BEC8CB}${lua_parse add_network_adapter_to downspeedgraph myadapter 15,130 BCC3C3 BCC3C3}${color} >${voffset -25}${offset 40}└─
+${voffset 20}
+${alignr}${offset -75}${exec cat /sys/class/power_supply/BAT0/capacity} : Battery ───────────────────┐
+${alignr}${offset -95}< ${exec acpi | grep "Battery 0" | awk '{print $4}'} | ${battery_percent BAT0}% > BAT 0 < ${color #BEC8CB}${battery_bar 5,110 BAT0}${color} >
+${voffset 25}
+${alignr}${offset -60}Hard Drive ─────────────────┐
+${alignr}${offset -70}< ${fs_used_perc}% >  Root < ${color #BEC8CB}${fs_bar 5,120 /}${color} >${offset 10}│
+${alignr}${offset -10}<  ${swapperc}% >  Swap < ${color #BEC8CB}${swapbar 5,120}${color} >${offset 10}└────────────
+# ${alignr}${offset -640}volume: ${exec amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }'}
+]];
