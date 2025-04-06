@@ -59,9 +59,10 @@ stow ~/.dotfiles/sddm
 chmod +x ~/.config/sddm/config-sddm.sh
 bash "~/.config/sddm/config-sddm.sh"
 ```
-#### Windows 10
-
-
+#### Windows
+```powershell
+.\windows\bootstrap.ps1
+```
 
 ## Manual sync
 Somes infos are not linked from dotfiles and need to be manually sync.
