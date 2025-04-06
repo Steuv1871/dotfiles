@@ -1,4 +1,4 @@
-# Stevu1871's Dotfiles
+# Steuv1871's Dotfiles
 My cross system dotfiles using [Stow](https://www.gnu.org/software/stow/)  
 by @Steuv1871
 
@@ -20,9 +20,9 @@ All folders are stow packages
 Exept system specific configs which are in there OS name
 
 ## Installation
-Clone the repo
+Clone the repo and sync submodules
 ```bash
-git clone https://github.com/Steuv1871/dotfiles.git ~/.dotfiles
+git clone --recurse-submodules https://github.com/Steuv1871/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 Stow needed packages
