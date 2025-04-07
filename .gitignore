@@ -1,6 +1,7 @@
 ### general
 /TODO.md
 /installed.sh
+/_WIP/
 
 ## qtile
 qtile/.config/qtile/__pycache__
