@@ -1,6 +1,10 @@
 ### general
 /TODO.md
 /installed.sh
+# Work In Progress files
+/_WIP/*
+!/_WIP/.stowrc
+!/_WIP/.stow-local-ignore
 
 ## qtile
 qtile/.config/qtile/__pycache__
