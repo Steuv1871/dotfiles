@@ -9,6 +9,12 @@ export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 # ░█▀█░█░█░░░█▄█░█░█░░░▀▀█░█▀▀░█░█
 # ░█░█░█▀█░░░█░█░░█░░░░▄▀░░▀▀█░█▀█
 # ░▀▀▀░▀░▀░░░▀░▀░░▀░░░░▀▀▀░▀▀▀░▀░▀
+# Check if Oh My Zsh is installed.
+# If not install with installation script without replacing .zshrc
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc 
+fi
+
 # Path Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
