@@ -5,6 +5,7 @@ def initGroups():
     groups = [Group("a", label="", layout='monadtall'),
           Group("z", label="", layout='monadtall'),
           Group("e", label="", layout='monadtall',matches=[Match(title=["Mozilla Firefox"])]),
+          Group("r", label="", layout='monadtall',matches=[Match(title=["Obsidian"])]),
           #Group("r", label="", layout='monadtall'),
           #Group("t", label="", layout='monadtall'),
           #Group("y", label="", layout='monadtall'),

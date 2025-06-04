@@ -34,11 +34,12 @@ from libqtile.config import Click, Drag, Match, Screen
 from libqtile.lazy import lazy
 
 # Custom submodules imports
+import params
 from keybind import initKeybind
 from groups import initGroups
 from colors import initColors
 from layout import initLayouts
-from bar_v1 import initBar
+from bar_v2 import initBar
 
 # Debug functions
 from libqtile.log_utils import logger
@@ -48,17 +49,9 @@ mod = "mod4"
 #########################
 
 # Backend-Specific Configuration
-if qtile.core.name == "x11":
-    terminal = "urxvtc"
-elif qtile.core.name == "wayland":
-    terminal = "alacritty"
-    from libqtile.backend.wayland import InputConfig
-    wl_input_rules = {
-        "type:keyboard": InputConfig(kb_layout='fr'),
-        #"type:touch": InputConfig(calibration="0 1 0 -1 0 1 0 0 1"),
-        "0712:000a WaveShare WaveShare": InputConfig(click_method='clickfinger', drag='False', tap='True', calibration="0 1 0 -1 0 1 0 0 1"), # Waveshare 7.9inch display
-        #"28784:21316:Nasp Quark Plus Mouse": InputConfig(), # Quark Plus Mouse wheel with rotary encoders
-    }
+terminal = params.TERM_X11
+if qtile.core.name == "wayland":
+    terminal = params.TERM_WAYLAND
 
 # call windows groups creation from groups.py
 groups = initGroups()
@@ -85,7 +78,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper="~/Pictures/wallpapers-penkesu/Wallpaper_spunk.png",
+        wallpaper=params.WALLPAPER,
         wallpaper_mode='fill',
         bottom=bar,
         ## Gap for all layouts
