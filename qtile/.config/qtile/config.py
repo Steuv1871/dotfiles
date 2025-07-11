@@ -34,12 +34,13 @@ from libqtile.config import Click, Drag, Match, Screen
 from libqtile.lazy import lazy
 
 # Custom submodules imports
-import params
+# import params
+from params import Params
 from keybind import initKeybind
 from groups import initGroups
 from colors import initColors
 from layout import initLayouts
-from bar_v2 import initBar
+from bar_v3 import initBar
 
 # Debug functions
 from libqtile.log_utils import logger
@@ -47,11 +48,13 @@ from libqtile.log_utils import logger
 ### Global variables ###
 mod = "mod4"
 #########################
+params = Params()
 
 # Backend-Specific Configuration
-terminal = params.TERM_X11
-if qtile.core.name == "wayland":
-    terminal = params.TERM_WAYLAND
+# terminal = params.TERM_X11
+# if qtile.core.name == "wayland":
+    # terminal = params.TERM_WAYLAND
+terminal = params.term
 
 # call windows groups creation from groups.py
 groups = initGroups()
@@ -66,7 +69,7 @@ colors = initColors()
 layouts = initLayouts(colors)
 
 # call bar configuration from bar_vx.py
-bar = initBar(colors)
+bar = initBar(colors, params)
 
 # Screen configuration
 widget_defaults = dict(
@@ -78,7 +81,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        wallpaper=params.WALLPAPER,
+        wallpaper=params.wallpaper,
         wallpaper_mode='fill',
         bottom=bar,
         ## Gap for all layouts

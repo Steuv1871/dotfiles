@@ -1,5 +1,5 @@
 from libqtile import bar, widget
-from colors import intermediate_color
+from tools import intermediate_color
 import params
 
 def initBar(colors):
