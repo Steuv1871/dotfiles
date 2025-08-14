@@ -1,0 +1,10 @@
+# EOL enforcement
+* text eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.xcf binary
+*.ttf binary
+*.icon binary
