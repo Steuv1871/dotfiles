@@ -103,7 +103,7 @@ nvims # Custom plugin for neovim config switcher
 zsh-vi-mode # A better and friendly vi(vim) mode plugin for ZSH
 )
 
-# skip the verification of insecure directories as oh-my-zsh don't appreciate Windows permissions
+# skip the verification of insecure directories on WSL as compinit don't appreciate Windows permissions
 if [ -n "$WSL_DISTRO_NAME" ]; then
     ZSH_DISABLE_COMPFIX=true
 fi
