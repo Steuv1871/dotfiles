@@ -16,3 +16,4 @@ function conky_add_network_adapter_to (...)
     -- return all arguments between ${ and }
     return "${" .. table.concat(args, " ") .. "}"
 end
+-- TODO: tester sur garuda et PC boulot pour l'obtention de l'ip: ip addr show | awk '/inet.*brd/{print $NF}' | egrep -v "(br-*)|(docker)" | head -1
