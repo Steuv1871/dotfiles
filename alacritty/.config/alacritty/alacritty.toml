@@ -1,5 +1,9 @@
+[general]
 # import = ["/home/steuv/.config/alacritty/themes/themes/nord.yaml"]
 import = ["/home/steuv/.config/alacritty/themes/themes/tokyo-night.toml"]
+
+[font]
+size = 12
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
@@ -18,8 +22,10 @@ family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [window]
-#opacity = 0.9
+opacity = 0.9
+blur = true
 title = "Alacritty"
 [window.dimensions]
 columns = 141
 lines = 17
+

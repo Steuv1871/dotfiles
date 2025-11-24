@@ -21,7 +21,7 @@ export LANGUAGE=fr_FR.UTF-8
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='mvim'
+    export EDITOR='nvim'
 fi
 
 # Arch Linux command-not-found support, you must have package pkgfile installed
@@ -53,7 +53,12 @@ setopt pushdminus
 
 # Completion.
 autoload -Uz compinit
-compinit
+# skip the verification of insecure directories on WSL as compinit don't appreciate Windows permissions
+if [ -n "$WSL_DISTRO_NAME" ]; then
+    compinit -u
+else
+    compinit
+fi
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
 zstyle ':completion:*' rehash true                              # automatically find new executables in path 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)

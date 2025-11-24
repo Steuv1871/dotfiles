@@ -53,6 +53,18 @@ def initKeybind(mod, terminal, groups):
         Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
         Key([mod], "c", lazy.spawncmd(),
             desc="Spawn a command using a prompt widget"),
+
+        ### Non Qtile keybind
+        # Media keys 
+        #Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+        Key([], "XF86AudioRaiseVolume", lazy.spawn("pamixer -i 5")),
+        #Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+        Key([], "XF86AudioLowerVolume", lazy.spawn("pamixer -d 5")),
+        #Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+        Key([], "XF86AudioMute", lazy.spawn("pamixer -t")),
+        Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 5%+")),
+        Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%-")),
+
     ]
 
     # Add keybind for groups

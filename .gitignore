@@ -12,6 +12,8 @@ qtile/.config/qtile/__pycache__
 ## nvim
 # ignore vim sessions from mini.sessions
 Session.vim
+# ignore lazy lock from Lazy
+lazy-lock.json
 
 ## zsh
 # ignore secrets

@@ -9,6 +9,12 @@ export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
 # ░█▀█░█░█░░░█▄█░█░█░░░▀▀█░█▀▀░█░█
 # ░█░█░█▀█░░░█░█░░█░░░░▄▀░░▀▀█░█▀█
 # ░▀▀▀░▀░▀░░░▀░▀░░▀░░░░▀▀▀░▀▀▀░▀░▀
+# Check if Oh My Zsh is installed.
+# If not install with installation script without replacing .zshrc
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --keep-zshrc 
+fi
+
 # Path Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -97,7 +103,7 @@ nvims # Custom plugin for neovim config switcher
 zsh-vi-mode # A better and friendly vi(vim) mode plugin for ZSH
 )
 
-# skip the verification of insecure directories as oh-my-zsh don't appreciate Windows permissions
+# skip the verification of insecure directories on WSL as compinit don't appreciate Windows permissions
 if [ -n "$WSL_DISTRO_NAME" ]; then
     ZSH_DISABLE_COMPFIX=true
 fi

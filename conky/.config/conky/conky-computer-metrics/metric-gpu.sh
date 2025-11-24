@@ -8,7 +8,7 @@ if [ $(lspci | grep VGA | wc -l) -eq 1 ]; then
     mygpu=$(lspci | grep VGA | sed -n 's/.*\[\(.*\)\].*/\1/p')
 else
     # multi-gpu
-    if [ $(lspci | grep VGA | grep NVIDIA) ]; then
+    if [[ $(lspci | grep VGA | grep NVIDIA) ]]; then
         # NVIDIA GPU
         mygpu=$(lspci | grep VGA | grep NVIDIA | sed -n 's/.*\[\(.*\)\].*/\1/p')
     else
