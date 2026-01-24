@@ -2,6 +2,11 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# Source global definitions (for bazzite)
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -114,4 +119,8 @@ fi
 export LC_ALL=fr_FR.UTF-8
 export LANG=fr_FR.UTF-8
 export LANGUAGE=fr_FR.UTF-8
-. "$HOME/.cargo/env"
+
+# Source Cargo if installed
+if [ -f "$HOME/.cargo/env" ]; then
+	. "$HOME/.cargo/env"
+fi
