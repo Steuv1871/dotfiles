@@ -19,12 +19,12 @@
 [submodule "yazi/.config/flavors/tokyo-night.yazi"]
 	path = yazi/.config/flavors/tokyo-night.yazi
 	url = https://github.com/BennyOe/tokyo-night.yazi.git
-[submodule "GRUB/themes/star-wars-posters-grub-theme"]
-	path = GRUB/themes/star-wars-posters-grub-theme
+[submodule "grub/themes/star-wars-posters-grub-theme"]
+	path = grub/themes/star-wars-posters-grub-theme
 	url = https://github.com/hashirsajid58200p/star-wars-posters-grub-theme.git
-[submodule "GRUB/themes/fallout-grub-theme"]
-	path = GRUB/themes/fallout-grub-theme
+[submodule "grub/themes/fallout-grub-theme"]
+	path = grub/themes/fallout-grub-theme
 	url = https://github.com/shvchk/fallout-grub-theme
-[submodule "GRUB/themes/Elegant-grub2-themes"]
-	path = GRUB/themes/Elegant-grub2-themes
+[submodule "grub/themes/Elegant-grub2-themes"]
+	path = grub/themes/Elegant-grub2-themes
 	url = https://github.com/vinceliuice/Elegant-grub2-themes
