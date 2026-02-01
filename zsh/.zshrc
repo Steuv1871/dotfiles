@@ -5,6 +5,8 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 ## Custom PATH
 # bob
 export PATH=$HOME/.local/share/bob/nvim-bin:$PATH
+# Brew package
+export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 # ░█▀█░█░█░░░█▄█░█░█░░░▀▀█░█▀▀░█░█
 # ░█░█░█▀█░░░█░█░░█░░░░▄▀░░▀▀█░█▀█
@@ -136,37 +138,6 @@ fpath+=~/.zsh_functions
 if [[ "$TERM_PROGRAM" != "vscode" ]]; then
     ## Run neofetch
     neofetch
-    ### Run Bazzite/OSblue status
-    # TODO: améliorer la mise en forme et mettre dans une zshfonction
-    # Boot status
-    if [[ -f /etc/motd.d/boot-status ]]; then
-		if grep -q "status is GREEN" /etc/motd.d/boot-status; then
-			GREENBOOT='Boot Status: Healthy 󰄳'
-		else
-			GREENBOOT=$(cat /etc/motd.d/boot-status)
-		fi
-        echo "󰟀  $GREENBOOT"
-
-        # Image
-        # TODO: Pour l'instant je met ici mais faire un IF qui détecte os-blue
-        escape() {
-            sed 's/[&/\]/\\&/g' <<< "$1"
-        }
-        IMAGE_INFO="/usr/share/ublue-os/image-info.json"
-        IMAGE_NAME=$(jq -r '."image-name"' < $IMAGE_INFO)
-        IMAGE_NAME_ESCAPED=$(escape "$IMAGE_NAME")
-        IMAGE_BRANCH=$(jq -r '."image-branch"' < $IMAGE_INFO)
-        IMAGE_BRANCH_ESCAPED=$(escape "$IMAGE_BRANCH")
-        echo "󱋩  $IMAGE_NAME_ESCAPED:$IMAGE_BRANCH_ESCAPED"
-        # Check image age and prompt to update
-        IMAGE_DATE=$(rpm-ostree status --booted | sed -n 's/.*Timestamp: \(.*\)/\1/p')
-        IMAGE_DATE_SECONDS=$(date -d "$IMAGE_DATE" +%s)
-        CURRENT_SECONDS=$(date +%s)
-        DIFFERENCE=$((CURRENT_SECONDS - IMAGE_DATE_SECONDS))
-        MONTH=$((30 * 24 * 60 * 60))
-        if [ "$DIFFERENCE" -ge "$MONTH" ]; then
-            echo '󰇻  Your current image is over 1 month old, run `ujust update`'
-        fi
-	fi
-    
+    ### Run Fedora atomic status check
+    . "$HOME/.config/oh-my-zsh/fedora-atomic-status.zsh" get
 fi
