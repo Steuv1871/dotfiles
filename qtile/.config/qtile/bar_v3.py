@@ -70,10 +70,10 @@ def initBar(colors, params):
     # Zone right
     fg, bg = bg, fg
     widgets_list.append(widget.TextBox(pwrln_symb_right, padding=0, fontsize=pwrln_symb_size_right, background=fg, foreground=bg))
-    widgets_list.append(widgets.wWlan(bg=bg, fg=fg))
+    #widgets_list.append(widgets.wWlan(bg=bg, fg=fg))
     fg, bg = bg, fg
     widgets_list.append(widget.TextBox(pwrln_symb_right, padding=0, fontsize=pwrln_symb_size_right, background=fg, foreground=bg))
-    widgets_list.extend(widgets.wVolume(bg=bg, fg=fg))
+    #widgets_list.extend(widgets.wVolume(bg=bg, fg=fg))
     widgets_list.append(widgets.wBacklight(bg=bg, fg=fg))
     fg, bg = bg, fg
     widgets_list.append(widget.TextBox(pwrln_symb_right, padding=0, fontsize=pwrln_symb_size_right, background=fg, foreground=bg))

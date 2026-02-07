@@ -44,17 +44,27 @@ from bar_v3 import initBar
 
 # Debug functions
 from libqtile.log_utils import logger
+logger.warning("\n--------- BEGIN CONFIG ---------\n")
 
 ### Global variables ###
 mod = "mod4"
 #########################
+
+### Environement variable management ###
+# Add directory to PATH for qtile process
+local_bin = os.path.expanduser("~/.local/bin")
+brew = "/home/linuxbrew/.linuxbrew/bin"
+os.environ['PATH'] = brew + ":" + local_bin + ":" + os.environ['PATH']
+# Modify $SHELL
+# os.environ['SHELL'] = "zsh"
+#########################
 params = Params()
 
-# Backend-Specific Configuration
-# terminal = params.TERM_X11
-# if qtile.core.name == "wayland":
-    # terminal = params.TERM_WAYLAND
+# terminal
 terminal = params.term
+
+# Keyboard
+wl_input_rules = params.wl_input_rules
 
 # call windows groups creation from groups.py
 groups = initGroups()
@@ -144,3 +154,4 @@ def start_once():
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+logger.warning("\n--------- END CONFIG ---------\n")

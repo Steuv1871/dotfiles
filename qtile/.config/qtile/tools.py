@@ -14,7 +14,7 @@ capture_output=True,
         text=True,
     ).stdout.replace("\n","")
     charging = 1 if charging_raw == 'Charging' else 0
-    return battery_icon(charge=int(charge), charging=charging) + charge + "%"
+    return battery_icon(charge=int(charge), charging=charging) + ' ' + charge + "%"
     
 
 def battery_icon(charge,charging):

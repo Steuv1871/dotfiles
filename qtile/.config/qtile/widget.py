@@ -19,7 +19,8 @@ class Widgets:
         )
 
     def wLayout(self, bg, fg):
-        return widget.CurrentLayoutIcon(background=bg, foreground=fg, padding=10)
+        #return widget.CurrentLayoutIcon(background=bg, foreground=fg, padding=10)
+        return widget.CurrentLayout(background=bg, foreground=fg, padding=10)
         
     def wGroupBox(self, bg, fg, focused):
         return widget.GroupBox(

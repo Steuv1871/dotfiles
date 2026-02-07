@@ -2,6 +2,9 @@
 from libqtile import qtile
 import tools
 
+# Debug functions
+from libqtile.log_utils import logger
+
 ### Default config
 TERM_X11 = "alacritty"
 TERM_WAYLAND = "alacritty"
@@ -37,9 +40,11 @@ if False:
     # PiJuice Widget
     BATTERY = tools.pijuiceBattery
 
+
 class Params:
     def __init__(self):
-        self.term = "alacritty"
+        # self.term = "alacritty"
+        self.term = "kitty"
         self.wallpaper = "~/Pictures/wallpapers/Wallpaper_spunk_v2_conky.png"
         self.cpu_temp = '/sys/class/thermal/thermal_zone7/temp' #find x86_pkg_temp with 'cat /sys/class/thermal/thermal_zone*/type' to get the CPU intern sensor
         self.battery_func = tools.battery
@@ -48,15 +53,15 @@ class Params:
 
         # Wayland config
         if qtile.core.name == "wayland":
-            wayland_params()
+            self.wayland_params()
     
         # Penkesu config
         if False:
-            penkesu_params()
+            self.penkesu_params()
     
     def wayland_params(self):
         from libqtile.backend.wayland import InputConfig
-        wl_input_rules = {
+        self.wl_input_rules = {
             "type:keyboard": InputConfig(kb_layout='fr'),
         }
 
