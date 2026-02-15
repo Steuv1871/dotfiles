@@ -1,6 +1,7 @@
 ### general
 /TODO.md
 /installed.sh
+.uuid
 # Work In Progress files
 /_WIP/*
 !/_WIP/.stowrc
